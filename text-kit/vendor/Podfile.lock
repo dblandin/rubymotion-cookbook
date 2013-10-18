@@ -1,0 +1,14 @@
+PODS:
+  - CocoaLumberjack (1.6.2)
+  - SVProgressHUD (0.9)
+
+DEPENDENCIES:
+  - CocoaLumberjack
+  - CocoaLumberjack (~> 1.6.2)
+  - SVProgressHUD (~> 0.9)
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: d73e1e317ced14ab930797dda6c17156ff17aaa1
+  SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
+
+COCOAPODS: 0.26.2

@@ -1,0 +1,55 @@
+# -*- coding: utf-8 -*-
+$:.unshift('/Library/RubyMotion/lib')
+require 'motion/project/template/ios'
+require 'bundler'
+require 'bubble-wrap/core'
+Dir.glob('./config/*.rb').each { |file| require file }
+
+if ARGV.join(' ') =~ /spec/
+  Bundler.require :default, :development, :spec
+elsif ARGV.join(' ') =~ /archive/
+  Bundler.require :default
+else
+  require 'sugarcube'
+  require 'sugarcube-repl'
+  Bundler.require :default, :development
+end
+
+Motion::Require.all(Dir.glob('lib/**/*.rb') + Dir.glob('app/**/*.rb'))
+
+environment_variables = Dotenv.load
+Motion::Project::App.setup do |app|
+  properties = AppProperties.new
+
+  app.detect_dependencies = false
+
+  app.name              = properties.name
+  app.identifier        = properties.identifier
+  app.deployment_target = properties.deployment_target
+
+  app.version                = properties.version
+  app.short_version          = properties.version
+  app.device_family          = properties.devices
+  app.interface_orientations = properties.orientations
+
+  app.icons                = properties.icons
+  app.prerendered_icon     = properties.prerendered_icon
+  app.provisioning_profile = properties.provisioning_profile
+
+  app.release do
+    app.codesign_certificate = properties.distribution_certificate
+  end
+
+  app.development do
+  end
+
+  app.frameworks += properties.additional_frameworks
+  app.libs       += properties.additional_libraries
+
+  environment_variables.each { |key, value| app.info_plist["ENV_#{key}"] = value }
+
+  app.pods do
+    pod 'CocoaLumberjack', '~> 1.6.2'
+    pod 'SVProgressHUD',   '~> 0.9'
+  end
+end

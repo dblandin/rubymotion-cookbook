@@ -1,0 +1,18 @@
+source 'https://rubygems.org'
+
+ruby '2.0.0'
+
+gem 'bubble-wrap', :require => false
+gem 'cocoapods'
+gem 'motion-blitz'
+gem 'motion-cocoapods'
+gem 'motion-logger'
+gem 'motion-require'
+gem 'motion-layout'
+gem 'routable'
+
+group :development do
+  gem 'rake'
+  gem 'dotenv'
+  gem 'sugarcube', :require => false
+end
