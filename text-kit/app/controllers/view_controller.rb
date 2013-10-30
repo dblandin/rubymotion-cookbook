@@ -6,10 +6,14 @@ class ViewController < UIViewController
 
     self.title = 'Controller'
 
+    setup_constraints
+  end
+
+  def viewDidAppear(animated)
     @text_storage = HighlightingTextStorage.new
     text_storage.addLayoutManager(text_view.layoutManager)
 
-    setup_constraints
+    super
   end
 
   def setup_constraints
@@ -51,6 +55,8 @@ class ViewController < UIViewController
         'Hashtag',
         atIndex: character_index,
         effectiveRange: range_pointer)
+
+      p value
     end
   end
 end

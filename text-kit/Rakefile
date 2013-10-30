@@ -15,9 +15,6 @@ else
   Bundler.require :default, :development
 end
 
-Motion::Require.all(Dir.glob('lib/**/*.rb') + Dir.glob('app/**/*.rb'))
-
-environment_variables = Dotenv.load
 Motion::Project::App.setup do |app|
   properties = AppProperties.new
 
@@ -45,8 +42,6 @@ Motion::Project::App.setup do |app|
 
   app.frameworks += properties.additional_frameworks
   app.libs       += properties.additional_libraries
-
-  environment_variables.each { |key, value| app.info_plist["ENV_#{key}"] = value }
 
   app.pods do
     pod 'CocoaLumberjack', '~> 1.6.2'
